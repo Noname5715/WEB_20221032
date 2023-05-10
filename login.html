@@ -9,14 +9,14 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 		
 		
-		<script type="text/javascript" src="../js/login.js"></script>
+		<script type="text/javascript" src="js/login.js"></script>
 		
 		
 		<title> 타이틀 테스트 </title>
 		<br>
 	</head>
 	
-	<body class="text-center">
+	<body class="text-center" onload="init();">
 		<br><br><br>
 		<div class="mx-auto" style="width:500px" style="text-align:center">
 			<a href="index.html" target="_blank"><img src="img/google.png" alt="구글이미지" class="img-fluid"></a>
@@ -40,7 +40,7 @@
 		  
         <div class="checkbox mb-3">
           <label>
-            <input type="checkbox" value="remember-me"> 아이디 기억
+            <input type="checkbox" value="remember-me" id="idSaveCheck"> 아이디 기억
           </label>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="button" onclick="login()">로그인 하기</button>
