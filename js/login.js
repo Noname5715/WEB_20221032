@@ -10,14 +10,24 @@ addJavascript('/js/security.js'); // 암복호화 함수
 addJavascript('/js/session.js'); // 세션 함수
 addJavascript('/js/cookie.js'); // 쿠키 함수
 
-//12주차
+// function session_set() { //세션 저장
+//     let id = document.querySelector("#floatingInput");
+//     let password = document.querySelector("#floatingPassword");
+//     if (sessionStorage) {
+//         let en_text = encrypt_text(password.value);
+//         sessionStorage.setItem("Session_Storage_test", en_text);
+
+//     } else {
+//         alert("로컬 스토리지 지원 x");
+//     }
+// }
 
 function login(){
     let form = document.querySelector("#form_main");
     let id = document.querySelector("#floatingInput");
     let password = document.querySelector("#floatingPassword");
     let check = document.querySelector("#idSaveCheck");
-
+	login_count();
     form.action = "../index_login.html";
     form.method = "get";
     
@@ -33,7 +43,7 @@ function login(){
 	
     if(id.value.length === 0 || password.value.length === 0){
         alert("아이디와 비밀번호를 모두 입력해주세요.")
-    }
+    }//문자열 공백 검사
 	else{
 		session_set(); // 세션 생성
         form.submit();
@@ -42,17 +52,29 @@ function login(){
 }
 
 
+
+
+function login_check(){
+	
+}
+
 function logout(){
+	logout_count();
 	session_del();
     location.href='../index.html';
 }
 
 
 function get_id(){
+	if(true){
+        decrypt_text();
+    }
+	else{
     var getParameters = function(paramName){ // 변수 = 함수(이름)
     var returnValue; // 리턴값을 위한 변수 선언
     var url = location.href; // 현재 접속 중인 주소 정보 저장
     var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&'); // ?기준 slice 한 후 split 으로 나눔
+	
         for(var i = 0; i < parameters.length; i++) { 
 		    var varName = parameters[i].split('=')[0];
             
@@ -62,8 +84,31 @@ function get_id(){
             // 나누어진 값의 비교를 통해 paramName 으로 요청된 데이터의 값만 return
 		    }
 	    } // 2중 for문 끝
+		
 }; // 함수 끝
 alert(getParameters('id') + '님 방갑습니다!'); // 메시지 창 출력
+		}
+}
+
+
+
+function session_check() { //세션 검사
+    if (sessionStorage.getItem("Session_Storage_test")) {
+        alert("이미 로그인 되었습니다.");
+        location.href="index_login.html"; // 로그인된 페이지로 이동
+    }
+}
+
+function session_del() {//세션 삭제
+    // Check if the sessionStorage object exists
+    if (sessionStorage) {
+        // Retrieve data
+        sessionStorage.removeItem("Session_Storage_test");
+        alert('로그아웃 버튼 클릭 확인 : 세션 스토리지를 삭제합니다.');
+    } 
+	else {
+        alert("세션 스토리지 지원 x");
+    }
 }
 
 
@@ -76,11 +121,30 @@ function init(){ // 로그인 폼에 쿠키에서 가져온 아이디 입력
     id.value = get_id; 
     check.checked = true; 
     }
-	session_check();
+	
+    session_check(); // 세션 유무 검사
 }
 
 
-//11주차 ppt 17부터
+
+
+
+
+
+function login_count(){
+	var cnt = getCookie("login_cnt");
+	var lcnt=0;
+	lcnt++;
+		setCookie("login_cnt",lcnt, 1);
+}
+
+
+function logout_count(){
+	var cnt = getCookie("logout_cnt");
+	var lcnt=0;
+	lcnt++;
+		setCookie("logout_cnt",lcnt, 1);
+}
 
 
 
